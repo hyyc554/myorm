@@ -11,14 +11,14 @@ class Author(models.Model):
     name = models.CharField(max_length=32)
     age = models.IntegerField()
     # 与AuthorDetail创建一对一的关系
-    author_detail = models.OneToOneField(to="AuthorDetail", on_delete=models.CASCADE)
+    # author_detail = models.OneToOneField(to="AuthorDetail", on_delete=models.CASCADE)
 
 
-class AuthorDetail(models.Model):
-    nid = models.AutoField(primary_key=True)
-    birthday = models.DateField()
-    telephone = models.BigIntegerField()
-    address = models.CharField(max_length=64)
+# class AuthorDetail(models.Model):
+#     nid = models.AutoField(primary_key=True)
+#     birthday = models.DateField()
+#     telephone = models.BigIntegerField()
+#     address = models.CharField(max_length=64)
 
 
 class Publish(models.Model):

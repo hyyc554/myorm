@@ -1,8 +1,34 @@
 from django.shortcuts import render, redirect, HttpResponse
 from app01.models import *
 
+import random
+
 
 # Create your views here.
+
+def start(request):
+    """
+    数据初始化的视图函数
+    :param request:
+    :return: 若创建成功将会访问首页
+    """
+    aut_list = [('tom', 22), ('mark', 23), ('jack', 24)]
+    for aut in aut_list:
+        aut_obj = Author.objects.create(name=aut[0], age=aut[1])
+    pub_list = [('人民出版社', 'beijing', 'renming@qq.com'), ('机械工业出版社', 'nanjing', 'gongye@qq.com'),
+                ('科学出版社', 'wuhan', 'science@qq.com')]
+    for pub in pub_list:
+        pub_obj = Publish.objects.create(name=pub[0], city=pub[1], email=pub[2])
+    book_list = [('追风筝的人', 200, '2012-11-12', 1), ('python', 123, '2012-11-12', 2), ('html', 234, '2012-11-13', 2),
+                 ('go', 122, '2011-11-12', 3), ]
+    for book in book_list:
+        book_obj = Book.objects.create(title=book[0], price=book[1], pub_date=book[2], publish_id=book[3])
+        book_aut1 = Author.objects.filter(name=aut_list[random.randint(0, 2)][0]).first()
+        book_aut2 = Author.objects.filter(name=aut_list[random.randint(0, 2)][0]).first()
+        book_obj.authors.add(book_aut1, book_aut2)
+    return redirect('app01:books')
+
+
 def add_book(request):
     """
     添加书籍信息的视图函数
